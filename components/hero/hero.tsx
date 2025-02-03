@@ -1,12 +1,12 @@
 "use client"
 
-import Link from "next/link"
-import { Button } from "./ui/button"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
-import { SiLeetcode, SiGeeksforgeeks } from "react-icons/si"
-import { Eye, Download } from "lucide-react"
-import { RainbowButton } from "./ui/rainbow-button"
 import { motion } from "framer-motion"
+import { Download, Eye } from "lucide-react"
+import Link from "next/link"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
+import { SiGeeksforgeeks, SiLeetcode } from "react-icons/si"
+import { Button } from "../ui/button"
+import { RainbowButton } from "../ui/rainbow-button"
 
 export default function Hero() {
   const containerVariants = {
