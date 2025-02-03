@@ -47,7 +47,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-sm supports-[backdrop-filter]:bg-white/60 transition-colors duration-300 shadow-sm"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -62,8 +62,9 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center space-x-4 text-sm font-medium">
             {navItems.map((item) => (
               <motion.div key={item.href} variants={itemVariants}>
-                <Link href={item.href} className="transition-colors hover:text-primary">
+                <Link href={item.href} className="transition-colors hover:text-primary relative group">
                   {item.label}
+                  <span className="absolute left-0 right-0 bottom-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
               </motion.div>
             ))}

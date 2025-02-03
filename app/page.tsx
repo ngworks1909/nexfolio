@@ -1,22 +1,40 @@
+"use client"
+
 import Hero from "@/components/hero"
 import Navbar from "@/components/navbar"
+import Skills from "@/components/skills/skills"
+import { motion } from "framer-motion"
 
 export default function Home() {
-  return (
-    <div className="relative min-h-screen">
-      {/* Background gradients */}
-      <div className="pointer-events-none fixed inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
-        <div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-purple-500/10 blur-[100px]" />
-      </div>
+  const pageVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
 
+  const childVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+
+  return (
+    <motion.div className="relative min-h-screen bg-white" initial="hidden" animate="visible" variants={pageVariants}>
+      <motion.div variants={childVariants}>
+          <Navbar />
+      </motion.div>
       <div className="relative z-10">
-        <Navbar />
-        <main className="container px-4 md:px-6">
-          <Hero/>
-        </main>
+        <motion.div variants={childVariants}>
+          <Hero />
+        </motion.div>
+        <motion.div variants={childVariants}>
+          <Skills />
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
