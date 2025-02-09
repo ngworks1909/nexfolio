@@ -6,72 +6,72 @@ import {motion} from 'framer-motion'
 export default function Projects() {
   const projects =  [
     {
-      title: "Chat Collect",
-      href: "https://chatcollect.com",
-      dates: "Jan 2024 - Feb 2024",
+      title: "NexGN Chat",
+      href: "https://ngworks-spotify.vercel.app",
+      dates: "Dec 2024 - Present",
       active: true,
       description:
-        "With the release of the [OpenAI GPT Store](https://openai.com/blog/introducing-the-gpt-store), I decided to build a SaaS which allows users to collect email addresses from their GPT users. This is a great way to build an audience and monetize your GPT API usage.",
+        "A modern chat application built with Next.js, Prisma, PostgreSQL, WebSockets, and Firebase. NexGN enables real-time messaging, image sharing, and audio/video calls, ensuring seamless and secure communication. Designed for both personal and professional use, it offers a sleek and intuitive interface.",
       technologies: [
         "Next.js",
         "Typescript",
         "PostgreSQL",
         "Prisma",
         "TailwindCSS",
-        "Stripe",
         "Shadcn UI",
         "Magic UI",
+        "Turborepo",
+        "Redis",
+        "Websockets",
+        "Express.js",
+        "Node.js"
       ],
       links: [
         {
           type: "Website",
-          href: "https://chatcollect.com",
+          href: "https://ngworks-spotify.vercel.app",
           icon: <Globe className="size-3" />,
         },
       ],
-      image: "",
+      image: "/nexgn.png",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
+        "",
     },
     {
-      title: "Magic UI",
-      href: "https://magicui.design",
-      dates: "June 2023 - Present",
+      title: "Spotify Clone",
+      href: "https://ngworks-spotify.vercel.app",
+      dates: "August 2024 - September 2024",
       active: true,
       description:
-        "Designed, developed and sold animated UI components for developers.",
+        "A full-featured music streaming web application inspired by Spotify. It allows users to browse, play, and manage songs seamlessly. Built with React, Firebase, Node.js, and Express, this app delivers a smooth and engaging audio experience with real-time updates and secure authentication.",
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "Firebase",
       ],
       links: [
         {
           type: "Website",
-          href: "https://magicui.design",
+          href: "https://ngworks-spotify.vercel.app",
           icon: <Globe className="size-3" />,
         },
         {
           type: "Source",
-          href: "https://github.com/magicuidesign/magicui",
+          href: "https://github.com/ngworks1909/spotify-clone",
           icon: <Github className="size-3" />,
         },
       ],
-      image: "",
-      video: "https://cdn.magicui.design/bento-grid.mp4",
+      image: "/spotify.png",
+      video: "",
     },
     {
-      title: "llm.report",
-      href: "https://llm.report",
-      dates: "April 2023 - September 2023",
+      title: "Tlrs",
+      href: "https://tlrs.vercel.app",
+      dates: "October 2024 - January 2025",
       active: true,
       description:
-        "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
+        "A web platform connecting customers with professional tailors for customized clothing services. Users can place orders, track progress, and communicate with tailors effortlessly. Developed with Next.js, Prisma, and PostgreSQL, Tlrs provides a smooth user experience for both clients and tailors.",
       technologies: [
         "Next.js",
         "Typescript",
@@ -80,53 +80,25 @@ export default function Projects() {
         "TailwindCSS",
         "Shadcn UI",
         "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
+        "Turborepo",
+        "Redis",
       ],
       links: [
         {
           type: "Website",
-          href: "https://llm.report",
+          href: "https://tlrs.vercel.app",
           icon: <Globe className="size-3" />,
         },
         {
           type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
+          href: "https://github.com/ngworks1909/tlrs",
           icon: <Github className="size-3" />,
         },
       ],
-      image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
+      image: "/tlrs.png",
+      video: "",
     },
-    {
-      title: "Automatic Chat",
-      href: "https://automatic.chat",
-      dates: "April 2023 - March 2024",
-      active: true,
-      description:
-        "Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://automatic.chat",
-          icon: <Globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
-    },
+    
   ]
   return (
     <section id="projects">

@@ -53,28 +53,6 @@ export default function Skills() {
   return (
     <section id="skills" className="py-20">
       <div className="container mx-auto px-4">
-        {/* <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-4"
-        >
-          <h2 className="text-3xl font-bold text-gray-800">Skills</h2>
-        </motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
-        >
-          Here are the technologies and tools I specialize in.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
-        > */}
 
          <div className="flex flex-col items-center justify-center space-y-4 text-center">
                       <div className="space-y-2">

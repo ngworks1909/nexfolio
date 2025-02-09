@@ -1,5 +1,6 @@
 import { Github, Twitter, Linkedin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export function Footer() {
   return (
@@ -8,14 +9,14 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built by{" "}
-            <a
-              href="#"
+            <Link
+              href="https://github.com/ngworks1909"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
               @ngworks1909
-            </a>
+            </Link>
             . © 2025 All rights reserved.
           </p>
         </div>

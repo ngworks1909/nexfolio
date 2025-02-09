@@ -9,6 +9,23 @@ import { Button } from "../ui/button"
 import { RainbowButton } from "../ui/rainbow-button"
 
 export default function Hero() {
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch("/resume.pdf")
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "resume.pdf"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error("Error downloading resume:", error)
+    }
+  }
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,25 +107,25 @@ export default function Hero() {
             </motion.p>
           </motion.div>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={itemVariants}>
-            <Link href="https://github.com" target="_blank">
+            <Link href="https://github.com/ngworks1909" target="_blank">
               <Button variant="outline" size="icon" className="rounded-full">
                 <FaGithub className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Button>
             </Link>
-            <Link href="https://linkedin.com" target="_blank">
+            <Link href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/" target="_blank">
               <Button variant="outline" size="icon" className="rounded-full">
                 <FaLinkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
-            <Link href="https://leetcode.com" target="_blank">
+            <Link href="https://leetcode.com/Nithin_1909/" target="_blank">
               <Button variant="outline" size="icon" className="rounded-full">
                 <SiLeetcode className="h-5 w-5" />
                 <span className="sr-only">LeetCode</span>
               </Button>
             </Link>
-            <Link href="https://geeksforgeeks.org" target="_blank">
+            <Link href="https://auth.geeksforgeeks.org/user/nithinkanduru1908/practice" target="_blank">
               <Button variant="outline" size="icon" className="rounded-full">
                 <SiGeeksforgeeks className="h-5 w-5" />
                 <span className="sr-only">GeeksforGeeks</span>
@@ -116,13 +133,15 @@ export default function Hero() {
             </Link>
           </motion.div>
           <motion.div className="flex flex-col sm:flex-row gap-4 mt-8" variants={itemVariants}>
-            <Button
-              variant="outline"
-              className="w-full sm:w-auto h-12 px-6 text-base font-medium rounded-full transition-all"
-            >
-              <Eye className="mr-2 h-5 w-5" /> View Resume
-            </Button>
-            <RainbowButton className="w-full sm:w-auto h-12 px-6 text-base font-medium rounded-full">
+          <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+      <Button
+        variant="outline"
+        className="w-full sm:w-auto h-12 px-6 text-base font-medium rounded-full transition-all"
+      >
+        <Eye className="mr-2 h-5 w-5" /> View Resume
+      </Button>
+    </Link>
+            <RainbowButton onClick={handleDownload} className="w-full sm:w-auto h-12 px-6 text-base font-medium rounded-full">
               <Download className="mr-2 h-5 w-5" /> Download Resume
             </RainbowButton>
           </motion.div>
