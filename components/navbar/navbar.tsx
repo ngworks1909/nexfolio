@@ -1,59 +1,29 @@
 "use client"
 
-import { Menu } from "lucide-react"
+import { Menu, Home, BadgeCheck, Briefcase, FolderOpen, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
 import { DialogTitle } from "@/components/ui/dialog"
-import type React from "react" // Added import for React
+import type React from "react"
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("")
   const [isSheetOpen, setIsSheetOpen] = useState(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#contact", label: "Contact" },
+    { href: "", label: "Home", icon: <Home className="w-5 h-5 mr-1" /> },
+    { href: "#skills", label: "Skills", icon: <BadgeCheck className="w-5 h-5 mr-1" /> },
+    { href: "#experience", label: "Experience", icon: <Briefcase className="w-5 h-5 mr-1" /> },
+    { href: "#projects", label: "Projects", icon: <FolderOpen className="w-5 h-5 mr-1" /> },
+    { href: "#contact", label: "Contact", icon: <Mail className="w-5 h-5 mr-1" /> },
   ]
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        duration: 0.3,
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        duration: 0.3,
-      },
-    },
-  }
 
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, href: string) => {
     e.preventDefault()
-    if (href === "/") {
+    if (href === "") {
       window.scrollTo({ top: 0, behavior: "smooth" })
     } else {
       const targetId = href.replace("#", "")
@@ -63,7 +33,7 @@ export default function Navbar() {
       }
     }
     setActiveSection(href)
-    setIsSheetOpen(false) // Close the sheet after clicking a link
+    setIsSheetOpen(false)
   }
 
   useEffect(() => {
@@ -90,33 +60,27 @@ export default function Navbar() {
   }, [navItems])
 
   return (
-    <motion.header
-      className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-sm supports-[backdrop-filter]:bg-white/60 transition-colors duration-300 shadow-sm"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <motion.header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-sm supports-[backdrop-filter]:bg-white/60 transition-colors duration-300 shadow-sm">
       <div className="container flex h-14 max-w-screen-2xl items-center">
-        <motion.div className="flex items-center space-x-4 md:space-x-6" variants={itemVariants}>
+        <motion.div className="flex items-center space-x-4 md:space-x-6">
           <Button
-            onClick={(e) => handleScroll(e, "/")}
+            onClick={(e) => handleScroll(e, "")}
             variant="ghost"
-            className="flex text-md items-center space-x-2 hover:bg-transparent"
+            className={`flex text-md items-center space-x-2 hover:bg-transparent`}
           >
-            <motion.span className="font-bold" variants={itemVariants}>
-              Nithin Kumar.
-            </motion.span>
+            <motion.span className="font-bold text-xl">Nithin Kumar.</motion.span>
           </Button>
           <nav className="hidden md:flex items-center space-x-4 text-sm font-medium">
             {navItems.map((item) => (
-              <motion.div key={item.href} variants={itemVariants}>
+              <motion.div key={item.href}>
                 <Button
                   variant="ghost"
                   onClick={(e) => handleScroll(e, item.href)}
-                  className={`p-0 hover:bg-transparent ${
-                    activeSection === item.href ? "text-primary" : "text-foreground"
+                  className={`flex items-center ${
+                    activeSection === item.href ? "text-primary bg-gray-200" : "text-foreground hover:bg-accent"
                   }`}
                 >
+                  {item.icon}
                   {item.label}
                 </Button>
               </motion.div>
@@ -126,7 +90,7 @@ export default function Navbar() {
         <div className="flex-1 md:hidden"></div>
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
-            <motion.div variants={itemVariants}>
+            <motion.div>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
@@ -143,10 +107,11 @@ export default function Navbar() {
                   key={index}
                   variant="ghost"
                   onClick={(e) => handleScroll(e, item.href)}
-                  className={`p-0 justify-start hover:bg-transparent ${
-                    activeSection === item.href ? "text-primary" : "text-foreground"
+                  className={`p-0 justify-start flex items-center ${
+                    activeSection === item.href ? "text-primary bg-gray-200" : "text-foreground hover:bg-gray-100"
                   }`}
                 >
+                  {item.icon}
                   {item.label}
                 </Button>
               ))}
