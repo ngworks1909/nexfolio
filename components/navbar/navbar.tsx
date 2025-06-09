@@ -4,7 +4,7 @@ import { Menu, Home, BadgeCheck, Briefcase, FolderOpen, Mail } from "lucide-reac
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
 import { DialogTitle } from "@/components/ui/dialog"
 import type React from "react"
@@ -12,14 +12,17 @@ import type React from "react"
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("")
   const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
-  const navItems = [
-    { href: "", label: "Home", icon: <Home className="w-5 h-5 mr-1" /> },
-    { href: "#skills", label: "Skills", icon: <BadgeCheck className="w-5 h-5 mr-1" /> },
-    { href: "#experience", label: "Experience", icon: <Briefcase className="w-5 h-5 mr-1" /> },
-    { href: "#projects", label: "Projects", icon: <FolderOpen className="w-5 h-5 mr-1" /> },
-    { href: "#contact", label: "Contact", icon: <Mail className="w-5 h-5 mr-1" /> },
-  ]
+  const navItems = useMemo(() => {
+    return [
+      { href: "", label: "Home", icon: <Home className="w-5 h-5 mr-1" /> },
+      { href: "#skills", label: "Skills", icon: <BadgeCheck className="w-5 h-5 mr-1" /> },
+      { href: "#experience", label: "Experience", icon: <Briefcase className="w-5 h-5 mr-1" /> },
+      { href: "#projects", label: "Projects", icon: <FolderOpen className="w-5 h-5 mr-1" /> },
+      { href: "#contact", label: "Contact", icon: <Mail className="w-5 h-5 mr-1" /> },
+    ]
+  }, [])
 
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, href: string) => {
     e.preventDefault()
@@ -38,6 +41,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScrollSpy = () => {
+      const scrollY = window.scrollY
+
+      // Update shadow state based on scroll position
+      setIsScrolled(scrollY > 0)
+
       const sections = navItems.map((item) => item.href.replace("#", ""))
       let currentActiveSection = ""
 
@@ -60,7 +68,11 @@ export default function Navbar() {
   }, [navItems])
 
   return (
-    <motion.header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-sm supports-[backdrop-filter]:bg-white/60 transition-colors duration-300 shadow-sm">
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-sm supports-[backdrop-filter]:bg-white/60 transition-all duration-300 ${
+        isScrolled ? "shadow-md" : ""
+      }`}
+    >
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <motion.div className="flex items-center space-x-4 md:space-x-6">
           <Button
@@ -122,4 +134,3 @@ export default function Navbar() {
     </motion.header>
   )
 }
-

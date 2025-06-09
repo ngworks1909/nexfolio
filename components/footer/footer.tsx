@@ -1,6 +1,5 @@
-import { Github, Twitter, Linkedin } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import FooterButton from './FooterButton'
 
 export function Footer() {
   return (
@@ -21,18 +20,9 @@ export function Footer() {
           </p>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon">
-            <Github className="h-5 w-5" />
-            <span className="sr-only">GitHub</span>
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Twitter className="h-5 w-5" />
-            <span className="sr-only">Twitter</span>
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Linkedin className="h-5 w-5" />
-            <span className="sr-only">LinkedIn</span>
-          </Button>
+          <FooterButton type='github'/>
+          <FooterButton type='twitter'/>
+          <FooterButton type='linkedin'/>
         </div>
       </div>
     </footer>

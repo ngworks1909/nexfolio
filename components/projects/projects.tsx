@@ -28,9 +28,9 @@ export default function Projects() {
       ],
       links: [
         {
-          type: "Website",
-          href: "https://ngworks-spotify.vercel.app",
-          icon: <Globe className="size-3" />,
+          type: "Source",
+          href: "https://github.com/ngworks1909/nexchat",
+          icon: <Github className="size-3" />,
         },
       ],
       image: "/nexgn.png",

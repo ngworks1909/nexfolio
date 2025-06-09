@@ -18,7 +18,8 @@ import {
   SiHtml5,
   SiCss3,
   SiGooglepubsub,
-  SiSocketdotio
+  SiSocketdotio,
+  SiExpo
 } from "react-icons/si"
 
 import { DiRedis } from "react-icons/di";
@@ -47,6 +48,7 @@ const skills = [
   { logo: <SiGooglepubsub />, skill: "Pub/Subs" },
   { logo: <LuServerOff />, skill: "Rate Limiting" },
   { logo: <SiTurborepo />, skill: "Turborepo" },
+  {logo: <SiExpo/>, skill: "Expo React Native"}
 ]
 
 export default function Skills() {
