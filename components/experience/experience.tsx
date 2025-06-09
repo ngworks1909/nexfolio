@@ -42,6 +42,16 @@ const experiences: ExperienceItem[] = [
         ],
       },
       {
+        name: "REAL ESTATE PLATFORM",
+        technologies: ["Next.js", "NextAuth", "Typescript", "PostgreSQL", "Prisma" , "Redis", "Turborepo"],
+        responsibilities: [
+          "Developed a full-stack real estate web application allowing users to buy, sell, and rent properties including homes, apartments, and land.",
+          "Implemented property listings, searchfilters, and user authentication with securerole-basedaccess(admin,buyer, seller).",
+          "Integrated bidding functionality, property image uploads, and responsive UI for seamless experience across all devices.",
+          "Designed RESTful APIs for smooth ddata exchange and used NextAuth for authentication."
+        ],
+      },
+      {
         name: "ADMIN PANEL",
         technologies: ["React.js", "Vite", "Typescript", "Turborepo"],
         responsibilities: [
