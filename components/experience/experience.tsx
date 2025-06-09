@@ -20,7 +20,7 @@ const experiences: ExperienceItem[] = [
   {
     company: "FIVLOG TECHNOLOGIES",
     position: "Full Stack Developer",
-    period: "Oct 2024 - Present",
+    period: "April 2024 - June 2025",
     location: "Hyderabad, Telangana",
     projects: [
       {
