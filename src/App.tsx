@@ -9,7 +9,7 @@ import Skills from "./components/skills/skills";
 
 export default function App() {
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-white overflow-x-hidden transition-colors duration-300">
+    <div className="relative dark flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-white overflow-x-hidden transition-colors duration-300">
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-20%] right-[-10%] w-200 h-200 blob-cyan opacity-40 blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-[-10%] left-[-20%] w-150 h-150 blob-purple opacity-30 blur-3xl animate-pulse-slow"></div>
