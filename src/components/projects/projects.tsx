@@ -53,7 +53,7 @@ export default function Projects() {
 ];
 
   return (
-    <section id="projects" className="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col antialiased selection:bg-primary selection:text-background-dark">
+    <section id="projects" className="bg-background-dark font-display min-h-screen flex flex-col antialiased selection:bg-primary selection:text-background-dark">
       <div className="relative flex h-full grow flex-col overflow-x-hidden">
         <header className="w-full px-6 pt-16 pb-8 md:px-12 md:pt-24 md:pb-12 lg:px-20 lg:pt-32 lg:pb-16 flex flex-col items-center text-center">
           <div className="max-w-4xl w-full">
