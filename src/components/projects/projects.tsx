@@ -57,11 +57,11 @@ export default function Projects() {
       <div className="relative flex h-full grow flex-col overflow-x-hidden">
         <header className="w-full px-6 pt-16 pb-8 md:px-12 md:pt-24 md:pb-12 lg:px-20 lg:pt-32 lg:pb-16 flex flex-col items-center text-center">
           <div className="max-w-4xl w-full">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-4">
               Architecting{" "}
               <span className="text-primary neon-text">Scalable Solutions</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
               A showcase of high-performance backends, distributed systems, and
               modern full-stack applications.
             </p>
@@ -82,11 +82,11 @@ export default function Projects() {
               </div>
               <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
                     {project.description}
                 </p>
                 <div className="mt-auto">
@@ -110,10 +110,10 @@ export default function Projects() {
                     </button>
                     <button onClick={() => {
                 window.open(project.githubLink, '_blank', 'noopener,noreferrer');
-              }} className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-transparent border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white font-medium text-sm transition-all hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary">
+              }} className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-transparent border border-white/20 text-white font-medium text-sm transition-all hover:border-primary hover:text-primary">
                       <img
                         alt="GitHub"
-                        className="w-4 h-4 dark:invert"
+                        className="w-4 h-4 invert"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-yaSglOjwVnKglC-K9jmTF5isUyVRg9wTdVs4yFLAe8CV1-nMMU-wpyE7bayOotbEqcXkCn7kn3PcAP7OmStrCEQh95ukq5Gzg1yRmwltEo2_tT3ATbuWCby6Su0eveEb0DnVgCfl7spTWzJxhJ05w7VHFghTYFlfLOsQfIHiy1agRRD7_CFAETWUh_s6cEz0--g0YP005d9eKuN36rBYOuDPExzJvuKkM7CQNq4osJwvU80XUJ0i_UShKXdjvLpYoI5NZlFcKiiv"
                       />
                       Source
@@ -126,7 +126,7 @@ export default function Projects() {
           </div>
         </section>
         <div className="w-full flex justify-center pb-20">
-          <button className="group flex items-center gap-2 px-8 py-3 rounded-xl border border-gray-300 dark:border-white/10 text-gray-700 dark:text-gray-300 font-bold hover:bg-white/5 hover:text-primary hover:border-primary transition-all duration-300">
+          <button className="group flex items-center gap-2 px-8 py-3 rounded-xl border border-white/10 text-gray-300 font-bold hover:bg-white/5 hover:text-primary hover:border-primary transition-all duration-300">
             <span>View Archives</span>
             <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
               arrow_forward
