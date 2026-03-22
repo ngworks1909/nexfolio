@@ -71,10 +71,10 @@ export default function Contact() {
     return;
   }
 
-  if (data.message.trim().length < 10) {
+  if (data.message.trim().length === 2) {
     showToast(
       "Validation Error",
-      "Message must be at least 10 characters.",
+      "Message must be at least 2 characters.",
       "error"
     );
     return;

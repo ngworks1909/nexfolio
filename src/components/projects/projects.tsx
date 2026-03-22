@@ -1,6 +1,61 @@
 import "./projects.css"
+import { useState } from "react"
+
 export default function Projects() {
+  const [showArchives, setShowArchives] = useState(false)
+  
   const projects = [
+  {
+    image: "/nexgpt.png",
+    title: "NexGPT (Legal Policy Assistant)",
+    description:
+      "A domain-specific Retrieval-Augmented Generation (RAG) system that allows users to query company policies in natural language.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Prisma",
+      "OpenAI API",
+      "NextAuth.js",
+    ],
+    githubLink: "https://github.com/ngworks1909/nexgpt",
+  },
+  {
+    image: "/wqs.png",
+    title: "Water Quality Testing Management System",
+    description:
+      "Water testing management platform with user-technician workflows and real-time status updates.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Socket.IO",
+      "PostgreSQL",
+      "Prisma",
+      "Turborepo",
+      "Redis",
+      "Event Driven Messages"
+    ],
+    githubLink: "https://github.com/ngworks1909/wqs",
+  },
+
+  {
+    image:
+      "/spotify.png",
+    title: "Spotify Clone",
+    description:
+      "A full-featured music streaming web app inspired by Spotify, supporting playlists, authentication, and real-time updates.",
+    techStack: [ 
+      "React.js", 
+      "Node.js", 
+      "Express.js", 
+      "Typescript", 
+      "Firebase"
+    ],
+    githubLink: "https://github.com/ngworks1909/spotify-clone",
+  },
+
   {
     image:
       "/nexgn.png",
@@ -19,20 +74,8 @@ export default function Projects() {
       "Turborepo",
     ],
     githubLink: "https://github.com/ngworks1909/nexchat",
-    liveLink: "",
   },
-
-  {
-    image:
-      "/spotify.png",
-    title: "Spotify Clone",
-    description:
-      "A full-featured music streaming web app inspired by Spotify, supporting playlists, authentication, and real-time updates.",
-    techStack: ["React.js", "Node.js", "Express.js", "Typescript", "Firebase"],
-    githubLink: "https://github.com/ngworks1909/spotify-clone",
-    liveLink: "https://ngworks-spotify.vercel.app",
-  },
-
+  
   {
     image:
       "tlrs.png",
@@ -48,7 +91,6 @@ export default function Projects() {
       "Turborepo",
     ],
     githubLink: "https://github.com/ngworks1909/tlrs",
-    liveLink: "https://tlrs.vercel.app",
   },
 ];
 
@@ -69,7 +111,7 @@ export default function Projects() {
         </header>
         <section className="w-full px-6 pb-24 md:px-12 lg:px-20 flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-350">
-            {projects.map((project) => (
+            {(showArchives ? projects : projects.slice(0, 3)).map((project) => (
                 <article key={project.title} className="glass-card rounded-2xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-2 group">
               <div className="relative w-full aspect-video overflow-hidden">
                 <div className="absolute inset-0 bg-linear-to-t from-background-dark via-transparent to-transparent opacity-60 z-10"></div>
@@ -99,16 +141,6 @@ export default function Projects() {
                   </div>
                   <div className="flex gap-3">
                     <button onClick={() => {
-                if(project.liveLink) {
-                  window.open(project.liveLink, '_blank', 'noopener,noreferrer');
-                }
-              }} className={`flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-primary text-background-dark font-bold text-sm transition-all hover:brightness-110 ${!project.liveLink && 'cursor-not-allowed' }`}>
-                      <span className="material-symbols-outlined text-[18px]">
-                        rocket_launch
-                      </span>
-                      Live Demo
-                    </button>
-                    <button onClick={() => {
                 window.open(project.githubLink, '_blank', 'noopener,noreferrer');
               }} className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-transparent border border-white/20 text-white font-medium text-sm transition-all hover:border-primary hover:text-primary">
                       <img
@@ -126,10 +158,10 @@ export default function Projects() {
           </div>
         </section>
         <div className="w-full flex justify-center pb-20">
-          <button className="group flex items-center gap-2 px-8 py-3 rounded-xl border border-white/10 text-gray-300 font-bold hover:bg-white/5 hover:text-primary hover:border-primary transition-all duration-300">
-            <span>View Archives</span>
+          <button onClick={() => setShowArchives(!showArchives)} className="group flex items-center gap-2 px-8 py-3 rounded-xl border border-white/10 text-gray-300 font-bold hover:bg-white/5 hover:text-primary hover:border-primary transition-all duration-300">
+            <span>{showArchives ? "Hide Archives" : "View Archives"}</span>
             <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
-              arrow_forward
+              {showArchives ? "arrow_back" : "arrow_forward"}
             </span>
           </button>
         </div>
