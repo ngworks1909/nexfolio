@@ -41,19 +41,19 @@ export default function Navbar() {
   }
 
   const handleDownload = () => {
-  try {
-    const link = document.createElement("a")
-    link.href = "/resume.pdf"
-    link.download = "Nithin_Resume.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    showToast("Downloaded", "Your resume has been downloaded.", "success")
-  } catch (error) {
-    showToast("Error", "Failed to download resume.", "error")
-    console.error(error)
+    try {
+      const link = document.createElement("a")
+      link.href = "/resume.pdf"
+      link.download = "Nithin_Resume.pdf"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      showToast("Downloaded", "Your resume has been downloaded.", "success")
+    } catch (error) {
+      showToast("Error", "Failed to download resume.", "error")
+      console.error(error)
+    }
   }
-}
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-white/10 px-6 lg:px-12 py-4">
@@ -74,9 +74,8 @@ export default function Navbar() {
             <button
               onClick={() => scrollToSection(item.toLowerCase())}
               key={item}
-              className={`text-sm font-medium transition-all ${
-                active === item.toLowerCase() ? "text-blue-500" : "text-slate-300 hover:text-blue-500"
-              }`}
+              className={`text-sm font-medium transition-all ${active === item.toLowerCase() ? "text-blue-500" : "text-slate-300 hover:text-blue-500"
+                }`}
             >
               {item}
             </button>
@@ -84,8 +83,9 @@ export default function Navbar() {
 
           <button
             onClick={handleDownload}
-            className="bg-blue-500/10 hover:bg-blue-500 border border-blue-500 text-blue-500 hover:text-white text-sm font-bold px-6 py-2.5 rounded-lg transition-all"
+            className="bg-blue-500/10 hover:bg-blue-500 border border-blue-500 text-blue-500 hover:text-white text-sm font-bold px-6 py-2.5 rounded-lg transition-all flex items-center gap-2"
           >
+            <span className="material-symbols-outlined">download</span>
             Resume
           </button>
         </nav>
@@ -102,18 +102,16 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-x-0 top-18.25 bg-background-dark border-b border-white/10 p-6 md:hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
+        className={`fixed inset-x-0 top-18.25 bg-background-dark border-b border-white/10 p-6 md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+          }`}
       >
         <nav className="flex flex-col gap-4">
           {navItems.map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item.toLowerCase())}
-              className={`text-left text-lg font-medium transition-colors ${
-                active === item.toLowerCase() ? "text-blue-500" : "text-slate-300 hover:text-blue-500"
-              }`}
+              className={`text-left text-lg font-medium transition-colors ${active === item.toLowerCase() ? "text-blue-500" : "text-slate-300 hover:text-blue-500"
+                }`}
             >
               {item}
             </button>
