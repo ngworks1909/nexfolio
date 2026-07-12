@@ -26,116 +26,117 @@ export default function Contact() {
 
   const { showToast } = useContext(ToastContext) as ToastContextType;
   const isValidEmail = (email: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  type FieldRule = {
+    check: () => boolean;
+    title: string;
+    message: string;
+  };
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
+    if (isSubmitting) return;
 
-
-  if (!data.name.trim()) {
-    showToast("Validation Error", "Name is required.", "error");
-    return;
-  }
-
-  if (data.name.trim().length < 2) {
-    showToast(
-      "Validation Error",
-      "Name must be at least 2 characters.",
-      "error"
-    );
-    return;
-  }
-
-  if (!data.email.trim()) {
-    showToast("Validation Error", "Email is required.", "error");
-    return;
-  }
-
-  if (!isValidEmail(data.email)) {
-    showToast(
-      "Validation Error",
-      "Please enter a valid email address.",
-      "error"
-    );
-    return;
-  }
-
-  if (!data.topic) {
-    showToast("Validation Error", "Please select a topic.", "error");
-    return;
-  }
-
-  if (!data.message.trim()) {
-    showToast("Validation Error", "Message cannot be empty.", "error");
-    return;
-  }
-
-  if (data.message.trim().length < 10) {
-    showToast(
-      "Validation Error",
-      "Message must be at least 10 characters.",
-      "error"
-    );
-    return;
-  }
-
-  /* ===================== FORM DATA ===================== */
-
-  const formData = new FormData();
-
-  formData.append("name", data.name.trim());
-  formData.append("email", data.email.trim());
-  formData.append("company", data.company.trim());
-  formData.append("topic", data.topic);
-  formData.append(
-    "_subject",
-    data.subject_line?.trim() || `New Inquiry: ${data.topic}`
-  );
-  formData.append("message", data.message.trim());
-
-  // FormSubmit settings
-  formData.append("_captcha", "false");
-  formData.append("_template", "table");
-  formData.append("_replyto", data.email.trim());
-
-  /* ===================== API CALL ===================== */
-
-  try {
-    const res = await fetch(
-      "https://formsubmit.co/nithin.kanduru1908@gmail.com",
+    /* ===================== VALIDATION RULES ===================== */
+    // Each rule reads like part of the "transmission" theme instead of a form scolding the user.
+    const rules: FieldRule[] = [
       {
-        method: "POST",
-        body: formData,
-      }
+        check: () => !!data.name.trim(),
+        title: "Missing Sender",
+        message: "Who's reaching out? Add your name to continue.",
+      },
+      {
+        check: () => data.name.trim().length >= 2,
+        title: "Signal Too Weak",
+        message: "That name's a bit short — give it at least 2 characters.",
+      },
+      {
+        check: () => !!data.email.trim(),
+        title: "No Return Address",
+        message: "I'll need an email to send a reply your way.",
+      },
+      {
+        check: () => isValidEmail(data.email),
+        title: "Address Undeliverable",
+        message: "That email doesn't look quite right — mind rechecking it?",
+      },
+      {
+        check: () => !!data.topic,
+        title: "Choose a Frequency",
+        message: "Pick a topic so this lands in the right inbox.",
+      },
+      {
+        check: () => !!data.message.trim(),
+        title: "Empty Transmission",
+        message: "Looks like the message got left blank.",
+      },
+      {
+        check: () => data.message.trim().length >= 2,
+        title: "Signal Too Faint",
+        message: "A couple more words would help — 2 characters minimum.",
+      },
+    ];
+
+    const failed = rules.find((rule) => !rule.check());
+    if (failed) {
+      showToast(failed.title, failed.message, "error");
+      return;
+    }
+
+    /* ===================== FORM DATA ===================== */
+    const formData = new FormData();
+    formData.append("name", data.name.trim());
+    formData.append("email", data.email.trim());
+    formData.append("company", data.company.trim());
+    formData.append("topic", data.topic);
+    formData.append(
+      "_subject",
+      data.subject_line?.trim() || `New Inquiry: ${data.topic}`,
     );
+    formData.append("message", data.message.trim());
+    formData.append("_captcha", "false");
+    formData.append("_template", "table");
+    formData.append("_replyto", data.email.trim());
 
-    if (!res.ok) throw new Error("Failed");
+    /* ===================== API CALL ===================== */
+    setIsSubmitting(true);
 
-    showToast(
-      "Transmission Complete",
-      "Mail sent successfully.",
-      "success"
-    );
+    try {
+      const res = await fetch(
+        "https://formsubmit.co/nithin.kanduru1908@gmail.com",
+        { method: "POST", body: formData },
+      );
 
-    setData({
-      name: "",
-      email: "",
-      company: "",
-      topic: "Recruiting / Hiring",
-      subject_line: "",
-      message: "",
-    });
-  } catch (err) {
-    showToast(
-      "Transmission Failed",
-      "Failed to send mail. Please try again.",
-      "error"
-    );
-    console.error(err);
-  }
-};
+      if (!res.ok) throw new Error("Failed");
 
+      showToast(
+        "Transmission Complete",
+        "Message received — I'll get back to you shortly.",
+        "success",
+      );
+
+      setData({
+        name: "",
+        email: "",
+        company: "",
+        topic: "Recruiting / Hiring",
+        subject_line: "",
+        message: "",
+      });
+    } catch (err) {
+      showToast(
+        "Transmission Failed",
+        "Something dropped mid-send. Try again in a moment.",
+        "error",
+      );
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -221,7 +222,8 @@ export default function Contact() {
                 <div className="flex gap-3">
                   <a
                     className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/30 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                    href="https://github.com/ngworks1909" target="_blank"
+                    href="https://github.com/ngworks1909"
+                    target="_blank"
                   >
                     <svg
                       aria-hidden="true"
@@ -238,7 +240,8 @@ export default function Contact() {
                   </a>
                   <a
                     className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] group"
-                    href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/" target="_blank"
+                    href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/"
+                    target="_blank"
                   >
                     <svg
                       aria-hidden="true"
@@ -306,7 +309,7 @@ export default function Contact() {
                         onChange={(e) => {
                           setData({ ...data, email: e.target.value });
                         }}
-                        type="email"
+                        type="text"
                       />
                     </div>
                   </div>
@@ -419,13 +422,25 @@ export default function Contact() {
                 </div>
                 <div className="pt-2">
                   <button
-                    className="w-full bg-linear-to-r from-primary to-blue-600 text-white font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(37,192,244,0.3)] hover:shadow-[0_0_30px_rgba(37,192,244,0.5)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
+                    className="w-full bg-linear-to-r from-primary to-blue-600 text-white font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(37,192,244,0.3)] hover:shadow-[0_0_30px_rgba(37,192,244,0.5)] hover:scale-[1.01] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-[0_0_20px_rgba(37,192,244,0.3)] transition-all flex items-center justify-center gap-2 group"
                     type="submit"
+                    disabled={isSubmitting}
                   >
-                    <span className="material-symbols-outlined group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">
-                      send
-                    </span>
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <span className="material-symbols-outlined animate-spin">
+                          progress_activity
+                        </span>
+                        Transmitting...
+                      </>
+                    ) : (
+                      <>
+                        <span className="material-symbols-outlined group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">
+                          send
+                        </span>
+                        Send Message
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
