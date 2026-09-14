@@ -2,6 +2,17 @@ import ExperienceCard from "./experience-card";
 import Reveal from "../../reveal/reveal";
 import "./experience.css";
 
+export interface ExperienceItem 
+{ company: string; 
+  role: string;
+  duration: string;
+  icon: string;
+  description: string;
+  tech: string[];
+  current?: boolean 
+}
+
+
 export default function Experience() {
   const EXPERIENCE_DATA: ExperienceItem[] = [
     {
