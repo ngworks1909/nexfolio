@@ -1,4 +1,5 @@
 import "./hero.css";
+import Reveal from '../../reveal/reveal'
 
 export default function Hero() {
   return (
@@ -10,41 +11,53 @@ export default function Hero() {
         <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="flex flex-col gap-6 text-center lg:text-left order-2 lg:order-1">
             <div className="space-y-4">
-              <div className="space-y-2">
-                <h3 className="text-primary font-medium tracking-wide text-lg md:text-xl flex items-center justify-center lg:justify-start gap-2">
-                  <span className="material-symbols-outlined text-base">
-                    waving_hand
+              <Reveal delay={0} className="space-y-2">
+                <div className="inline-flex items-center gap-2 self-center lg:self-start mx-auto lg:mx-0 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                  <span
+                    className="text-lg animate-wave origin-bottom-right inline-block"
+                    aria-hidden="true"
+                  >
+                    👋
                   </span>
-                  Hi, I’m Nithin Kumar
-                </h3>
-                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                  <p className="text-primary font-semibold text-base md:text-lg tracking-wide">
+                    Hi, I&apos;m Nithin Kumar
+                  </p>
+                </div>
+                <p className="text-2xl md:text-3xl font-bold text-white tracking-tight">
                   Backend &amp; Real-Time Systems Engineer
-                </h2>
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-slate-300 pt-2">
-                Building{" "}
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-[#a855f7] neon-text-glow">
-                  Scalable Backends
-                </span>{" "}
-                <br className="hidden lg:block" /> &amp; Real-Time Systems
-              </h1>
-              <h2 className="text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Architecting high-performance infrastructure using{" "}
-                <strong className="text-white font-medium">Node.js</strong>,{" "}
-                <strong className="text-white font-medium">TypeScript</strong>,{" "}
-                <strong className="text-white font-medium">WebSockets</strong>,
-                and <strong className="text-white font-medium">Redis</strong>{" "}
-                for the next generation of gaming and enterprise systems.
-              </h2>
+                </p>
+              </Reveal>
+
+              <Reveal delay={120}>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-slate-300 pt-2">
+                  Building{" "}
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-[#a855f7] neon-text-glow">
+                    Scalable Backends
+                  </span>{" "}
+                  <br className="hidden lg:block" /> &amp; Real-Time Systems
+                </h1>
+              </Reveal>
+
+              <Reveal delay={240}>
+                <p className="text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  Architecting high-performance infrastructure using{" "}
+                  <strong className="text-white font-medium">Node.js</strong>,{" "}
+                  <strong className="text-white font-medium">TypeScript</strong>,{" "}
+                  <strong className="text-white font-medium">WebSockets</strong>,
+                  and <strong className="text-white font-medium">Redis</strong>{" "}
+                  for the next generation of gaming and enterprise systems.
+                </p>
+              </Reveal>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
+
+            <Reveal delay={360} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
               <button
                 onClick={() => {
                   window.open("/resume.pdf", "_blank", "noopener,noreferrer");
                 }}
                 className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-8 py-3.5 text-background-dark font-bold text-base transition-all hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(37,192,244,0.5)]"
               >
-                <span className="material-symbols-outlined text-xl">
+                <span className="material-symbols-outlined text-xl" aria-hidden="true">
                   description
                 </span>
                 View Resume
@@ -57,13 +70,14 @@ export default function Hero() {
                 }}
                 className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-white font-bold text-base backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30"
               >
-                <span className="material-symbols-outlined text-xl">
+                <span className="material-symbols-outlined text-xl" aria-hidden="true">
                   layers
                 </span>
                 View Projects
               </button>
-            </div>
-            <div className="pt-8 border-t border-white/5 mt-4">
+            </Reveal>
+
+            <Reveal delay={480} className="pt-8 border-t border-white/5 mt-4">
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">
                 Core Technologies
               </p>
@@ -72,6 +86,7 @@ export default function Hero() {
                   <span
                     className="material-symbols-outlined text-primary"
                     style={{ fontSize: "20px" }}
+                    aria-hidden="true"
                   >
                     dns
                   </span>
@@ -83,6 +98,7 @@ export default function Hero() {
                   <span
                     className="material-symbols-outlined text-primary"
                     style={{ fontSize: "20px" }}
+                    aria-hidden="true"
                   >
                     code
                   </span>
@@ -94,6 +110,7 @@ export default function Hero() {
                   <span
                     className="material-symbols-outlined text-primary"
                     style={{ fontSize: "20px" }}
+                    aria-hidden="true"
                   >
                     hub
                   </span>
@@ -105,6 +122,7 @@ export default function Hero() {
                   <span
                     className="material-symbols-outlined text-primary"
                     style={{ fontSize: "20px" }}
+                    aria-hidden="true"
                   >
                     database
                   </span>
@@ -113,22 +131,36 @@ export default function Hero() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
-          <div className="relative flex items-center justify-center order-1 lg:order-2 min-h-100">
+
+          <Reveal
+            delay={200}
+            direction="scale"
+            className="relative flex items-center justify-center order-1 lg:order-2 min-h-100"
+          >
             <div className="absolute inset-0 bg-linear-to-tr from-primary/10 to-transparent rounded-full blur-3xl transform scale-75"></div>
             <div className="relative w-full max-w-md aspect-4/3">
               <div className="absolute top-1/2 left-1/2 w-64 md:w-80 glass-card rounded-xl p-5 z-20 animate-float">
                 <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-sm">
+                    <span
+                      className="material-symbols-outlined text-primary text-sm"
+                      aria-hidden="true"
+                    >
                       storage
                     </span>
                     <span className="text-xs font-bold text-white uppercase tracking-wider">
                       Server Health
                     </span>
                   </div>
-                  <span className="flex h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></span>
+                  <span className="relative flex items-center">
+                    <span
+                      className="flex h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Status: online</span>
+                  </span>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -171,12 +203,15 @@ export default function Hero() {
               </div>
               <div className="absolute -top-6 -right-4 md:right-0 w-48 glass-card rounded-lg p-3 z-10 animate-float-delayed transform">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-yellow-400 text-sm">
+                  <span
+                    className="material-symbols-outlined text-yellow-400 text-sm"
+                    aria-hidden="true"
+                  >
                     javascript
                   </span>
                   <span className="text-[10px] text-slate-300">server.ts</span>
                 </div>
-                <div className="font-mono text-[8px] leading-relaxed text-slate-400">
+                <div className="font-mono text-[8px] leading-relaxed text-slate-400" aria-hidden="true">
                   <span className="text-purple-400">import</span> {"{ Server }"}{" "}
                   <span className="text-purple-400">from</span>{" "}
                   <span className="text-green-400">'ws'</span>;
@@ -200,7 +235,10 @@ export default function Hero() {
               </div>
               <div className="absolute -bottom-8 -left-4 md:left-0 w-40 glass-card rounded-lg p-3 z-30 animate-float-delayed transform">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-red-400 text-sm">
+                  <span
+                    className="material-symbols-outlined text-red-400 text-sm"
+                    aria-hidden="true"
+                  >
                     database
                   </span>
                   <span className="text-[10px] text-slate-300">
@@ -229,6 +267,7 @@ export default function Hero() {
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none opacity-20 z-0"
                 xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
               >
                 <line
                   stroke="#25c0f4"
@@ -250,7 +289,7 @@ export default function Hero() {
                 ></line>
               </svg>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

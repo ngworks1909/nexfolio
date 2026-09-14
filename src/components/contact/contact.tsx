@@ -1,20 +1,113 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ToastContext, type ToastContextType } from "../provider/toast-context";
 import "./contact.css";
+import Reveal from '../../reveal/reveal'
+
+type Topic =
+  | "Recruiting / Hiring"
+  | "Project / Architecture"
+  | "Collaboration"
+  | "General Inquiry";
+
+interface ContactFormData {
+  name: string;
+  email: string;
+  company: string;
+  topic: Topic;
+  subject_line: string;
+  message: string;
+}
+
+const TOPICS: Topic[] = [
+  "Recruiting / Hiring",
+  "Project / Architecture",
+  "Collaboration",
+  "General Inquiry",
+];
+
+function TopicDropdown({
+  value,
+  onChange,
+}: {
+  value: Topic;
+  onChange: (topic: Topic) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative group" ref={wrapperRef}>
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+        <span
+          className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm"
+          aria-hidden="true"
+        >
+          topic
+        </span>
+      </div>
+
+      <button
+        type="button"
+        id="topic"
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        className="form-input w-full bg-[#162024] border border-white/10 rounded-xl pl-10 pr-9 py-3.5 text-white focus:outline-none focus:border-primary/50 transition-all text-sm text-left"
+      >
+        {value}
+      </button>
+
+      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+        <span
+          className={`material-symbols-outlined text-slate-500 text-sm transition-transform duration-200 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+          aria-hidden="true"
+        >
+          expand_more
+        </span>
+      </div>
+
+      {isOpen && (
+        <ul
+          role="listbox"
+          className="absolute z-20 mt-2 w-full rounded-xl border border-white/10 bg-[#162024] shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden animate-dropdown-in"
+        >
+          {TOPICS.map((topic) => (
+            <li key={topic} role="option" aria-selected={value === topic}>
+              <button
+                type="button"
+                onClick={() => {
+                  onChange(topic);
+                  setIsOpen(false);
+                }}
+                className={`w-full text-left px-4 py-3 text-sm transition-colors ${
+                  value === topic
+                    ? "bg-primary/10 text-primary"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                {topic}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function Contact() {
-  type Topic =
-    | "Recruiting / Hiring"
-    | "Project / Architecture"
-    | "Collaboration"
-    | "General Inquiry";
-  interface ContactFormData {
-    name: string;
-    email: string;
-    company: string;
-    topic: Topic;
-    subject_line: string;
-    message: string;
-  }
   const [data, setData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -40,8 +133,6 @@ export default function Contact() {
     e.preventDefault();
     if (isSubmitting) return;
 
-    /* ===================== VALIDATION RULES ===================== */
-    // Each rule reads like part of the "transmission" theme instead of a form scolding the user.
     const rules: FieldRule[] = [
       {
         check: () => !!data.name.trim(),
@@ -86,7 +177,6 @@ export default function Contact() {
       return;
     }
 
-    /* ===================== FORM DATA ===================== */
     const formData = new FormData();
     formData.append("name", data.name.trim());
     formData.append("email", data.email.trim());
@@ -101,7 +191,6 @@ export default function Contact() {
     formData.append("_template", "table");
     formData.append("_replyto", data.email.trim());
 
-    /* ===================== API CALL ===================== */
     setIsSubmitting(true);
 
     try {
@@ -139,6 +228,7 @@ export default function Contact() {
   };
 
   return (
+    <Reveal className="text-center mb-12">
     <section
       id="contact"
       className="grow flex flex-col justify-center relative z-10 pt-24 pb-12 lg:pt-0"
@@ -147,7 +237,7 @@ export default function Contact() {
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 w-fit mx-auto backdrop-blur-sm mb-6">
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
               </span>
@@ -168,9 +258,9 @@ export default function Contact() {
             </p>
           </div>
           <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-            <div className="lg:col-span-2 glass-card rounded-2xl p-8 relative overflow-hidden h-full flex flex-col justify-between min-h-100">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+            <Reveal direction="left" className="lg:col-span-2 glass-card rounded-2xl p-8 relative overflow-hidden h-full flex flex-col justify-between min-h-100">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20" aria-hidden="true"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl -ml-20 -mb-20" aria-hidden="true"></div>
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold text-white mb-2">
                   Get in Touch
@@ -179,13 +269,12 @@ export default function Contact() {
                   Fill out the form or reach out directly.
                 </p>
                 <div className="space-y-6">
-                  <a
-                    className="flex items-center gap-4 group"
+                  
+                  <a  className="flex items-center gap-4 group"
                     href="mailto:nithin.kanduru1908@gmail.com"
-                    target="_blank"
                   >
-                    <div className="size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/30 transition-all shrink-0">
-                      <span className="material-symbols-outlined text-white group-hover:text-primary transition-colors">
+                    <div className="size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:shadow-[0_0_15px_-3px_rgba(37,192,244,0.4)] transition-all shrink-0">
+                      <span className="material-symbols-outlined text-white group-hover:text-primary transition-colors" aria-hidden="true">
                         mail
                       </span>
                     </div>
@@ -199,8 +288,8 @@ export default function Contact() {
                     </div>
                   </a>
                   <div className="flex items-center gap-4 group">
-                    <div className="size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-purple-500/10 group-hover:border-purple-500/30 transition-all shrink-0">
-                      <span className="material-symbols-outlined text-white group-hover:text-purple-400 transition-colors">
+                    <div className="size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-purple-500/10 group-hover:border-purple-500/30 group-hover:shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] transition-all shrink-0">
+                      <span className="material-symbols-outlined text-white group-hover:text-purple-400 transition-colors" aria-hidden="true">
                         location_on
                       </span>
                     </div>
@@ -220,10 +309,12 @@ export default function Contact() {
                   Social Profiles
                 </h4>
                 <div className="flex gap-3">
-                  <a
-                    className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/30 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                  
+                  <a  className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/30 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                     href="https://github.com/ngworks1909"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub profile"
                   >
                     <svg
                       aria-hidden="true"
@@ -238,10 +329,12 @@ export default function Contact() {
                       ></path>
                     </svg>
                   </a>
-                  <a
-                    className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] group"
+                  
+                  <a className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] group"
                     href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
                   >
                     <svg
                       aria-hidden="true"
@@ -258,9 +351,9 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
-            </div>
-            <div className="lg:col-span-3 glass-panel p-8 rounded-2xl border border-white/10 relative">
-              <div className="absolute -top-2.5 right-5 w-20 h-px bg-linear-to-r from-transparent via-primary to-transparent opacity-50"></div>
+            </Reveal>
+            <Reveal direction="right" delay={150} className="lg:col-span-3 glass-panel p-8 rounded-2xl relative">
+              <div className="absolute -top-2.5 right-5 w-20 h-px bg-linear-to-r from-transparent via-primary to-transparent opacity-50" aria-hidden="true"></div>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -272,7 +365,7 @@ export default function Contact() {
                     </label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm">
+                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm" aria-hidden="true">
                           person
                         </span>
                       </div>
@@ -297,7 +390,7 @@ export default function Contact() {
                     </label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm">
+                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm" aria-hidden="true">
                           alternate_email
                         </span>
                       </div>
@@ -309,7 +402,7 @@ export default function Contact() {
                         onChange={(e) => {
                           setData({ ...data, email: e.target.value });
                         }}
-                        type="text"
+                        type="email"
                       />
                     </div>
                   </div>
@@ -324,7 +417,7 @@ export default function Contact() {
                     </label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm">
+                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm" aria-hidden="true">
                           business
                         </span>
                       </div>
@@ -347,32 +440,10 @@ export default function Contact() {
                     >
                       Inquiry Type
                     </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm">
-                          topic
-                        </span>
-                      </div>
-                      <select
-                        id="topic"
-                        value={data.topic}
-                        onChange={(e) => {
-                          setData({ ...data, topic: e.target.value as Topic });
-                        }}
-                        className="form-input w-full bg-[#162024] border border-white/10 rounded-xl pl-10 pr-4 py-3.5 text-white focus:outline-none focus:border-primary/50 transition-all text-sm appearance-none"
-                      >
-                        <option value="hiring">Recruiting / Hiring</option>
-                        <option value="project">Project / Architecture</option>
-                        <option value="collab">Collaboration</option>
-                        <option value="other">General Inquiry</option>
-                      </select>
-
-                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <span className="material-symbols-outlined text-slate-500 text-sm">
-                          expand_more
-                        </span>
-                      </div>
-                    </div>
+                    <TopicDropdown
+                      value={data.topic}
+                      onChange={(topic) => setData({ ...data, topic })}
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -384,7 +455,7 @@ export default function Contact() {
                   </label>
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm">
+                      <span className="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors text-sm" aria-hidden="true">
                         short_text
                       </span>
                     </div>
@@ -428,14 +499,14 @@ export default function Contact() {
                   >
                     {isSubmitting ? (
                       <>
-                        <span className="material-symbols-outlined animate-spin">
+                        <span className="material-symbols-outlined animate-spin" aria-hidden="true">
                           progress_activity
                         </span>
                         Transmitting...
                       </>
                     ) : (
                       <>
-                        <span className="material-symbols-outlined group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">
+                        <span className="material-symbols-outlined group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true">
                           send
                         </span>
                         Send Message
@@ -444,10 +515,11 @@ export default function Contact() {
                   </button>
                 </div>
               </form>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>
     </section>
+    </Reveal>
   );
 }
