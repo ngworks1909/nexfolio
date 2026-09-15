@@ -2,16 +2,15 @@ import ExperienceCard from "./experience-card";
 import Reveal from "../../reveal/reveal";
 import "./experience.css";
 
-export interface ExperienceItem 
-{ company: string; 
+export interface ExperienceItem {
+  company: string;
   role: string;
   duration: string;
   icon: string;
   description: string;
   tech: string[];
-  current?: boolean 
+  current?: boolean;
 }
-
 
 export default function Experience() {
   const EXPERIENCE_DATA: ExperienceItem[] = [
@@ -38,7 +37,6 @@ export default function Experience() {
 
   return (
     <section id="experience" className="relative z-10 grow flex flex-col">
-
       {/* Header */}
       <Reveal direction="up">
         <section className="pt-20 pb-10 px-4 flex flex-col items-center text-center">
@@ -79,7 +77,8 @@ export default function Experience() {
           ))}
         </div>
 
-        <div className="absolute bottom-0 left-8 md:left-1/2 w-px h-24 bg-linear-to-t from-background-dark to-transparent transform -translate-x-1/2" />
+        {/* Timeline continuation */}
+        <div className="absolute bottom-0 left-8 md:left-1/2 w-px h-24 bg-linear-to-t from-background-dark to-transparent transform -translate-x-1/2 md:block" />
       </section>
 
       {/* Achievements */}
@@ -89,12 +88,12 @@ export default function Experience() {
             <span className="material-symbols-outlined text-primary">
               emoji_events
             </span>
+
             Key Achievements
           </h2>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
           <Reveal direction="up" delay={0}>
             <div className="glass-card p-6 rounded-xl hover:bg-surface-dark transition-colors border border-border-dark/50">
               <div className="text-4xl font-bold text-primary mb-2">
@@ -145,7 +144,6 @@ export default function Experience() {
               </p>
             </div>
           </Reveal>
-
         </div>
       </section>
     </section>

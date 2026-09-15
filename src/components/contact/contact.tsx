@@ -228,14 +228,13 @@ export default function Contact() {
   };
 
   return (
-    <Reveal className="text-center mb-12">
     <section
       id="contact"
       className="grow flex flex-col justify-center relative z-10 pt-24 pb-12 lg:pt-0"
     >
       <div className="layout-container flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4 md:px-12 lg:px-24">
         <div className="w-full max-w-6xl">
-          <div className="text-center mb-12">
+          <Reveal className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 w-fit mx-auto backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -256,7 +255,7 @@ export default function Contact() {
               product design work, scalable backends, or partnership
               opportunities.
             </p>
-          </div>
+          </Reveal>
           <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
             <Reveal direction="left" className="lg:col-span-2 glass-card rounded-2xl p-8 relative overflow-hidden h-full flex flex-col justify-between min-h-100">
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20" aria-hidden="true"></div>
@@ -330,7 +329,7 @@ export default function Contact() {
                     </svg>
                   </a>
                   
-                  <a className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] group"
+                  <a  className="size-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] group"
                     href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -520,6 +519,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-    </Reveal>
   );
 }
