@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Contact from "./components/contact/contact";
 import Experience from "./components/experience/experience";
 import Footer from "./components/footer/footer";
@@ -8,6 +9,16 @@ import { ToastProvider } from "./components/provider/toast-provider";
 import Skills from "./components/skills/skills";
 
 export default function App() {
+  useEffect(() => {
+    // Disable the browser's automatic scroll-position restoration
+    // on refresh/back-forward navigation
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    // Force scroll to top on mount (covers refresh + first load)
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-background-dark text-white overflow-x-hidden transition-colors duration-300">
       <div className="fixed inset-0 z-0 pointer-events-none">

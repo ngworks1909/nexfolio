@@ -21,7 +21,7 @@ export default function Footer() {
           <a className="hover:text-primary transition-colors" href="https://github.com/ngworks1909" target="_blank">
             GitHub
           </a>
-          <a className="hover:text-primary transition-colors" href="https://www.linkedin.com/in/k-nithin-kumar-reddy-847284205/" target="_blank">
+          <a className="hover:text-primary transition-colors" href="https://www.linkedin.com/in/nithink19/" target="_blank">
             LinkedIn
           </a>
           <a className="hover:text-primary transition-colors" href="https://x.com/NithinKumar1909" target="_blank">
