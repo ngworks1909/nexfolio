@@ -114,16 +114,16 @@ export default function Experience() {
           <Reveal direction="up" delay={150}>
             <div className="glass-card p-6 rounded-xl hover:bg-surface-dark transition-colors border border-border-dark/50">
               <div className="text-4xl font-bold text-purple-400 mb-2">
-                4+
+                4
               </div>
 
               <h3 className="text-lg font-bold text-white mb-2">
-                Projects Delivered
+                Projects Worked On
               </h3>
 
               <p className="text-slate-400 text-sm">
-                Successfully delivered enterprise-grade applications on time
-                and budget.
+                Contributed to enterprise and personal full-stack projects
+                across backend and frontend development.
               </p>
             </div>
           </Reveal>
@@ -131,16 +131,16 @@ export default function Experience() {
           <Reveal direction="up" delay={300}>
             <div className="glass-card p-6 rounded-xl hover:bg-surface-dark transition-colors border border-border-dark/50">
               <div className="text-4xl font-bold text-cyan-300 mb-2">
-                500+
+                30%
               </div>
 
               <h3 className="text-lg font-bold text-white mb-2">
-                Active Users
+                Query Efficiency
               </h3>
 
               <p className="text-slate-400 text-sm">
-                Built systems supporting daily operations for large user
-                bases.
+                Improved database query efficiency by 30% through schema, indexes and
+                query optimization.
               </p>
             </div>
           </Reveal>
